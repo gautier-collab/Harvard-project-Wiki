@@ -1,0 +1,51 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New entry
+{% endblock %}
+
+{% block body %}
+    <h1>
+        New entry
+    </h1>
+    <br>
+    <br>
+
+    {% if already_existing %}
+        <h5 class="error">
+            Sorry, your entry couldn't be created: there is already one named "{{ title }}".
+        </h5>
+        <br>
+    {% endif %}
+
+    {% if invalid_character %}
+        <h5 class="error">
+            Sorry, your entry couldn't be created: the title contains invalid character(s).
+        </h5>
+        <br>
+    {% endif %}
+
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <b>
+            Title:
+        </b>
+        <br>
+        {% if title %}
+            <input type="text" name="title" value={{title}} placeholder="Enter a title here">
+        {% else %}
+            <input type="text" name="title" placeholder="Enter a title here">
+        {% endif %}
+        <br>
+        <br>
+        <br>
+        <b>
+            Content:
+        </b>
+        <br>
+        <textarea name="content">{% if content %}{{content}}{% endif %}</textarea>
+        <br>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}

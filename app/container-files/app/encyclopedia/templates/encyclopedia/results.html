@@ -1,0 +1,31 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block body %}
+
+    <h5>
+        Sorry, there is no entry named "{{ keywords }}".
+    </h5>
+    <br>
+    <h5>
+        Pages you may be looking for:
+    </h5>
+
+    {% if results %}
+
+        <ul>
+        {% for result in results %}
+            <li>
+                <a href="{% url 'entry' result %}">
+                    {{ result }}
+                <a>
+            </li>
+        {% endfor %}
+        </ul>
+
+    {% endif %}
+
+{% endblock %}
